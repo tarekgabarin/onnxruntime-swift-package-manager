@@ -95,9 +95,9 @@ if let pod_archive_path = ProcessInfo.processInfo.environment["ORT_POD_LOCAL_PAT
     // ORT release
     package.targets.append(
        Target.binaryTarget(name: "onnxruntime",
-                           url: "https://download.onnxruntime.ai/pod-archive-onnxruntime-c-1.24.2.zip",
+                           url: "https://github.com/tarekgabarin/onnxruntime-swift-package-manager/releases/download/binaries-1.24.2/pod-archive-onnxruntime-c-1.24.2.zip",
                            // SHA256 checksum
-                           checksum: "f7100a992d2a8135168c8afd831e6a58b465349101982aa58b3e11d36e600b54")
+                           checksum: "2dcefe0f36fee7d44b9bbe5ab9d8a81b0175b153e9c32d967517bb84863d0486")
     )
 }
 
@@ -107,8 +107,8 @@ if let ext_pod_archive_path = ProcessInfo.processInfo.environment["ORT_EXTENSION
     // ORT Extensions release
     package.targets.append(
         Target.binaryTarget(name: "onnxruntime_extensions",
-                            url: "https://download.onnxruntime.ai/pod-archive-onnxruntime-extensions-c-0.13.0.zip",
+                            url: "https://github.com/tarekgabarin/onnxruntime-swift-package-manager/releases/download/binaries-1.24.2/pod-archive-onnxruntime-extensions-c-0.13.0.zip",
                             // SHA256 checksum
-                            checksum: "346522d1171d4c99cb0908fa8e4e9330a4a6aad39cd83ce36eb654437b33e6b5")
+                            checksum: "2b4f44a091a29e4486afd59f2c28a4ef2b087402b82f61126e240d42cc03b2c0")
     )
 }
