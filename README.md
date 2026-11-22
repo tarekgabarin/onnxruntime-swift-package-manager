@@ -1,32 +1,30 @@
-# Swift Package Manager for ONNX Runtime
+# onnxruntime-swift-package-manager (mirror)
 
-A light-weight repository for providing [Swift Package Manager (SPM)](https://www.swift.org/package-manager/) support for [ONNXRuntime](https://github.com/microsoft/onnxruntime). The ONNX Runtime native package is included as a binary dependency of the SPM package.
+A byte-exact mirror of Microsoft's removed `microsoft/onnxruntime-swift-package-manager`
+at tag 1.24.2 (`b7fb7f7`), with the binary targets re-hosted on this repo. Used by the
+BenkyoReader iOS app's SPM dependency.
 
+## Why this exists
 
-SPM is the alternative to CocoaPods when desired platform to consume is mobile iOS.
+On 2026-11-17, Microsoft pulled `microsoft/onnxruntime` (and its
+`onnxruntime-swift-package-manager` repo) off GitHub — reportedly over a software
+supply-chain attack. The Swift package's binary targets were never in the repo: they
+download from `download.onnxruntime.ai`, which died with the org. So **no fork of the
+repo can build by itself** — every fork's `Package.swift` points at the same dead
+domain.
 
-## Note
+This repo is the self-hosted copy:
 
-The `objectivec/` directory is copied from the [ORT repo](https://github.com/microsoft/onnxruntime/tree/main/objectivec) and it's expected to match. It will be updated periodically/before release to merge new changes.
+- `main` and tag `1.24.2` point at the re-hosting commit: upstream's 1.24.2 content
+  with the two `binaryTarget` URLs in `Package.swift` rewritten to the
+  [`binaries-1.24.2` release](../../releases/tag/binaries-1.24.2) here (new SHA256
+  checksums recorded; the zips were re-made from SPM's own resolved artifacts).
+- Everything else — the Swift bindings, the layout — is upstream 1.24.2 unchanged.
 
-## Contributing
+## The rules
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
-
-When you submit a pull request, a CLA bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
-
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
-
-## Trademarks
-
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
-trademarks or logos is subject to and must follow 
-[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
-Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
-Any use of third-party trademarks or logos are subject to those third-party's policies.
+- **Dependents must not repoint at `microsoft/onnxruntime*`** — not even when
+  upstream returns. A repo returning after a supply-chain incident needs a reviewed
+  phase, not a URL edit.
+- **Updating:** push the new upstream tag here, re-host its binaries in a new release
+  on this repo, and point `Package.swift` at it with the new checksums.
